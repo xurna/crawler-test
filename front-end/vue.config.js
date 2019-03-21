@@ -23,7 +23,7 @@ module.exports = {
             .set('views',resolve('src/views'));
 
     // 移除 prefetch 插件
-    config.plugins.delete('prefetch');
+    // config.plugins.delete('prefetch');
 
     config.module
       .rule('images')

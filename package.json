@@ -23,7 +23,10 @@
   },
   "homepage": "https://github.com/xurna/crawler-test#readme",
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "crawler": "^1.2.0",
     "fs": "0.0.1-security",
+    "headless-chrome-crawler": "^1.8.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-onerror": "^4.1.0",
@@ -34,6 +37,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "path": "^0.12.7",
+    "puppeteer": "^1.13.0",
     "supervisor": "^0.12.0"
   }
 }

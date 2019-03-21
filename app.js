@@ -39,6 +39,7 @@ app.use(async (ctx, next) => {
 // 解析request的body
 app.use(bodyParser());
 app.use(controller());
+// 根据ctx.status设置response响应头
 app.use(router.allowedMethods());
 
 // 在端口3000监听:
