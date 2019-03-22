@@ -44,11 +44,13 @@ const makLoop = 5;
   sort = sort.filter((item, index, arr) => {
     return item.sort !== '';
   })
+  // todo 更新数据库
 
   console.log('sort:', sort.length);
 
   // 同步执行
   eachSeries(sort, (item, callback) => {
+    // 当前操作完成后使用callback执行下一个操作。
     process(item, () => { callback() })
   }, (err) => {
     // 全部执行完成后
@@ -98,6 +100,7 @@ const makLoop = 5;
         return detailList
       });
 
+      // todo 更新数据库
       const contents = url + '\n' + JSON.stringify(sortDetailList);
       console.log(countUrl, 'sort---------:', sortDetailList.length);
       const fs = require("fs");
