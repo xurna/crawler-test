@@ -68,6 +68,7 @@
 // })();
 
 const puppeteer = require('puppeteer');
+const eachSeries  =  require('async/eachSeries');
 const $ = require('cheerio');
 
 const workPath = './contents';
@@ -128,14 +129,6 @@ const makLoop = 5;
       const tab = await browser.newPage();
       // await tab.setUserAgent(userAgent);
       await tab.setViewport({ width: 1024, height: 800 });
-      // await tab.setRequestInterception(true);
-      // //filter to block images
-      // tab.on('request', request => {
-      //   if (request.resourceType() === 'image')
-      //     request.abort();
-      //   else
-      //     request.continue();
-      // });
       await tab.goto(url);
       //execute tap request
       
@@ -163,28 +156,24 @@ const makLoop = 5;
         const sel = $('.spread-module a')
         const elements = Array.from(sel);
         const detailList = elements.map(element => {
-          return { title: $(element).children('p:last-child').text(), img: $(element).find('img').attr('src'), href: element.href };
+          return { title: $(element).find('.t').text(), img: $(element).find('img').attr('src'), href: element.href };
         })
         return detailList
       });
 
       const contents = url+ '\n'+ JSON.stringify(sortDetailList);
-      // console.log(contents);
       console.log(countUrl,'sort---------:', sortDetailList.length);
       const fs = require("fs");
-      fs.writeFileSync(workPath + '/' + countUrl + '.txt', contents);
-      // console.log(title + " has been downloaded to local.");
+      fs.writeFileSync(workPath + '/' + countUrl + '.json', contents);
       await tab.close();
 
     } catch (err) {
-      // console.log('url: ' + tab.url() + ' \n' + err.toString());
+      console.log('url: ' + tab.url() + ' \n' + err.toString());
     } finally {
       process();
     }
 
   }
-
-  // await browser.close();
 })();
 
 
