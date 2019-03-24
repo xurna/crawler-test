@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import VideoScheme from '../schemas/video';
+const mongoose = require('mongoose');
+const VideoScheme = require('../schemas/video');
 
 mongoose.model('Video', VideoScheme);
 const Video = mongoose.model('Video');

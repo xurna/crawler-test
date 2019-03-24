@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import SortScheme from '../schemas/sort';
+const mongoose = require('mongoose');
+const SortScheme = require('../schemas/sort');
 
 mongoose.model('Sort', SortScheme);
 const Sort = mongoose.model('Sort');
@@ -26,20 +26,20 @@ const addSort = async (ctx, next) => {
 
 // 拉取列表
 const list = async (ctx, next) => {
-    Sort.findAll((err, sorts) => {
-      if (err) {
-        ctx.body = {
-          err: 1,
-          desc: '服务器繁忙'
-        };
-      } else {
-        ctx.body = {
-          err: 0,
-          desc: '获取成功，共有' + sorts.length + '条数据',
-          data: sorts
-        };
-      }
-    });
+  Sort.findAll((err, sorts) => {
+    if (err) {
+      ctx.body = {
+        err: 1,
+        desc: '服务器繁忙'
+      };
+    } else {
+      ctx.body = {
+        err: 0,
+        desc: '获取成功，共有' + sorts.length + '条数据',
+        data: sorts
+      };
+    }
+  });
 };
 
 module.exports = {

@@ -44,7 +44,9 @@ app.use(controller());
 app.use(router.allowedMethods());
 
 // 连接数据库
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/test',{
+  useNewUrlParser: true,
+});
 const db = mongoose.connection;
 
 // 在端口12083监听:
