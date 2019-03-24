@@ -44,7 +44,7 @@ app.use(controller());
 app.use(router.allowedMethods());
 
 // 连接数据库
-mongoose.connect('mongodb://localhost/test',{
+mongoose.connect('mongodb://localhost/crawler',{
   useNewUrlParser: true,
 });
 const db = mongoose.connection;

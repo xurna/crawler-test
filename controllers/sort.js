@@ -10,13 +10,25 @@ const addSort = async (ctx, next) => {
   if (sort) {
     const usedSort = sort && await Sort.findBySort(sort);
     if (usedSort) {
-      console.log('该分类已存在数据库~');
+      ctx.body = {
+        err: 1,
+        desc: '数据已存在'
+      };
+      console.log(sort, '该分类已存在数据库~');
     } else {
       const _sort = new Sort(ctx.request.body);
       _sort.save((err) => {
         if (err) {
+          ctx.body = {
+            err: 0,
+            desc: '服务器繁忙'
+          };
           console.log('分类对象存入数据库失败~');
         } else {
+          ctx.body = {
+            err: 0,
+            desc: '操作成功！'
+          };
           console.log('分类对象存入数据库成功！');
         }
       });
@@ -43,6 +55,6 @@ const list = async (ctx, next) => {
 };
 
 module.exports = {
+  'POST /sort/add': addSort,
   'GET /sort/list': list,
-  'POST /sort/add': addSort
 };

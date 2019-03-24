@@ -10,13 +10,25 @@ const addVideo = async (ctx, next) => {
   if (title) {
     const usedTitle = title && await Video.findByTitle(title);
     if (usedTitle) {
+      ctx.body = {
+        err: 0,
+        desc: '数据已存在'
+      };
       console.log('该video对象已存在数据库~');
     } else {
       const _video = new Video(ctx.request.body);
       _video.save((err) => {
         if (err) {
+          ctx.body = {
+            err: 1,
+            desc: '服务器繁忙'
+          };
           console.log('video对象存入数据库失败~');
         } else {
+          ctx.body = {
+            err: 0,
+            desc: '操作成功！'
+          };
           console.log('video对象存入数据库成功！');
         }
       });
@@ -46,6 +58,6 @@ const list = async (ctx, next) => {
 };
 
 module.exports = {
+  'POST /video/add': addVideo,
   'GET /video/list': list,
-  'POST /video/add': addVideo
 };
