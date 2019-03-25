@@ -18,7 +18,7 @@ module.exports = {
     config.resolve.alias
             .set('js',resolve('src/assets/js'))
             .set('images',resolve('src/assets/images'))
-            .set('less',resolve('src/assets/less'))
+            .set('css',resolve('src/assets/css'))
             .set('comp',resolve('src/components'))
             .set('views',resolve('src/views'));
 
