@@ -67,11 +67,10 @@ const makLoop = 5;
         cb()
       })
       .catch((err) => {
-        // console.log(err.response.status);
+        console.log(err.response.status);
         cb('----err-----')
       })
   }
-
   console.log('sort:', sort.length);
 
   // 同步执行

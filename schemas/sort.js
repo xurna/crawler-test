@@ -29,4 +29,5 @@ sortSchema.statics = {
       .exec(cb)
   },
 }
+
 module.exports = sortSchema;

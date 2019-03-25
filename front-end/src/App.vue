@@ -21,12 +21,16 @@ export default {
   data() {
     return{
       sort:[],
+      videoList:[],
     }
   },
   created(){
     console.log(HOST);
     axios.get(`${HOST}/sort/list`).then((res)=>{
       this.sort =  res.data.data;
+    })
+    axios.get(`${HOST}/video/list?sort=首页`).then((res)=>{
+      this.videoList =  res.data.data;
     })
   }
 }

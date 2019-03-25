@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "supervisor -i node_modules,front-end app.js"
+    "start": "supervisor -i node_modules,front-end app.js",
+    "crawler": "node crawler/index.js"
   },
   "repository": {
     "type": "git",
