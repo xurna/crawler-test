@@ -51,18 +51,19 @@ const addVideo = async (ctx, next) => {
 // 拉取视频列表
 const list = async (ctx, next) => {
   const sort = ctx.request.query.sort;
+  console.log('sort',sort)
   if (sort) {
     const videos = await Video.find({ sort: sort }).sort({ 'createTime': -1 }).exec()
     if (videos) {
       ctx.body = {
-        err: 1,
-        desc: '服务器繁忙'
-      };
-    } else {
-      ctx.body = {
         err: 0,
         desc: '获取成功，共有' + videos.length + '条数据',
         data: videos
+      };
+    } else {
+      ctx.body = {
+        err: 1,
+        desc: '服务器繁忙'
       };
     }
   } else {
