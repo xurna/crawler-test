@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="['header', moreActive? '' :'more-active']">
+    <div :class="['header', moreActive? 'more-active' :'']">
       <nav class="top-bar">
         <div
           class="nav-item"
