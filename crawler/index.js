@@ -18,7 +18,7 @@ const makLoop = 5;
 (async () => {
   let url;
   let countUrl = 0;
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false , slowMo: 0});
   const page = await browser.newPage();
   await page.setJavaScriptEnabled(true);
   // 启用请求拦截器,启用请求拦截器会禁用页面缓存。
@@ -63,7 +63,7 @@ const makLoop = 5;
   async function updateSort(item, cb) {
     await axios.post('http://localhost:12083/sort/add', item)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         cb()
       })
       .catch((err) => {
@@ -154,7 +154,7 @@ const makLoop = 5;
       async function updateVideo(item, cb) {
         await axios.post('http://localhost:12083/video/add', item)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             cb()
           })
           .catch((err) => {
