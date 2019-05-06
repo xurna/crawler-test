@@ -43,14 +43,15 @@ export default {
   created() {
     console.log(HOST);
     axios.get(`${HOST}/sort/list`).then((res) => {
-      this.active = res.data.data[0].sort
+      this.active = this.$route.query.sort || res.data.data[0].sort
       this.sort = res.data.data;
-      this.getTabContent(res.data.data[0].sort)
+      this.getTabContent(this.active)
     })
 
   },
   methods: {
     getTabContent(sort) {
+      this.$router.push({ path: '/', query: { sort} })
       axios.get(`${HOST}/video/list?sort=${sort}`).then((res) => {
         this.videoList = res.data.data;
       })
