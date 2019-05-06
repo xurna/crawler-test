@@ -18,7 +18,7 @@ const makLoop = 5;
 (async () => {
   let url;
   let countUrl = 0;
-  const browser = await puppeteer.launch({ headless: false , slowMo: 0});
+  const browser = await puppeteer.launch({ headless: false, slowMo: 0 });
   const page = await browser.newPage();
   await page.setJavaScriptEnabled(true);
   // 启用请求拦截器,启用请求拦截器会禁用页面缓存。
@@ -32,13 +32,12 @@ const makLoop = 5;
       request.continue();
   });
   page.on('console', msg => {
-    for (let i = 0; i < msg.args().length; ++i){
-      console.log(`${i}: ${msg.args()[i]}`);
+    // console.log(msg);
+    for (let i = 0; i < msg.args().length; ++i) {
+      // console.log(`${i}: ${msg.args()[i]}`);
     }
   });
-
   await page.goto(rootUrl);
-  
 
   // 或者视频分类数组 [{sort:xxx,href:xxx},...]
   let sort = await page.evaluate(() => {
@@ -54,34 +53,10 @@ const makLoop = 5;
     return item.sort !== '';
   })
 
-  // 更新sort数据库
-  eachSeries(sort, (item, callback) => {
-    // 当前操作完成后使用callback执行下一个操作。
-    updateSort(item, () => { callback() })
-  }, (err) => {
-    // 全部执行完成后
-    if (err) {
-      console.log('sort eachseries err:', err)
-    } else {
-      console.log('----sort update database success!----');
-    }
-  })
-
-  async function updateSort(item, cb) {
-    await axios.post('http://localhost:12083/sort/add', item)
-      .then((res) => {
-        // console.log(res.data);
-        cb()
-      })
-      .catch((err) => {
-        console.log(err.response.status);
-        cb('----err-----')
-      })
-  }
   console.log('sort:', sort.length);
 
   // 同步执行
-  eachSeries(sort, (item, callback) => {
+  eachSeries(sort.slice(0, 1), (item, callback) => {
     // 当前操作完成后使用callback执行下一个操作。
     process(item, () => { callback() })
   }, (err) => {
@@ -110,7 +85,7 @@ const makLoop = 5;
         try {
           await tab.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
           // 等待时间
-          await tab.waitForNavigation({ timeout: maxWait, waitUntil: ['networkidle0'] });
+          await tab.waitFor(300);
         } catch (err) {
           // console.log('scroll to bottom and then wait ' + maxWait + 'ms.');
         }
@@ -123,7 +98,7 @@ const makLoop = 5;
         console.log('there\'s none refresh button. No need to TAP');
       }
 
-      // 或者视频数组 [{title:xxx,img:xxx,href:xxx},...]
+      // 获取视频数组 [{title:xxx,img:xxx,href:xxx},...]
       let sortDetailList = await tab.evaluate(() => {
         const sel = $('.spread-module a')
         const elements = Array.from(sel);
@@ -143,32 +118,6 @@ const makLoop = 5;
         item.sort = sortName;
         return item;
       })
-
-      // todo 更新数据库
-      // 更新sort数据库
-      eachSeries(sortDetailList, (item, callback) => {
-        // 当前操作完成后使用callback执行下一个操作。
-        updateVideo(item, () => { callback() })
-      }, (err) => {
-        // 全部执行完成后
-        if (err) {
-          console.log('video eachseries err:', err)
-        } else {
-          console.log('----video update database success!----');
-        }
-      })
-
-      async function updateVideo(item, cb) {
-        await axios.post('http://localhost:12083/video/add', item)
-          .then((res) => {
-            // console.log(res.data);
-            cb()
-          })
-          .catch((err) => {
-            console.log(err.response.status);
-            cb('----err-----')
-          })
-      }
 
       const contents = url + '\n' + JSON.stringify(sortDetailList);
       console.log(countUrl, 'sort---------:', sortDetailList.length);
