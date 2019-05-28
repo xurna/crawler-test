@@ -1,4 +1,4 @@
-// const HCCrawler = require('headless-chrome-crawler');
+// 爬取数据到数据库
 const puppeteer = require('puppeteer');
 const path = require('path');
 const eachSeries = require('async/eachSeries');
@@ -18,7 +18,7 @@ const makLoop = 5;
 (async () => {
   let url;
   let countUrl = 0;
-  const browser = await puppeteer.launch({ headless: false , slowMo: 0});
+  const browser = await puppeteer.launch({ headless: true , slowMo: 0});
   const page = await browser.newPage();
   await page.setJavaScriptEnabled(true);
   // 启用请求拦截器,启用请求拦截器会禁用页面缓存。
@@ -33,7 +33,7 @@ const makLoop = 5;
   });
   page.on('console', msg => {
     for (let i = 0; i < msg.args().length; ++i){
-      console.log(`${i}: ${msg.args()[i]}`);
+      // console.log(`${i}: ${msg.args()[i]}`);
     }
   });
 

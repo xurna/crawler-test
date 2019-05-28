@@ -1,3 +1,4 @@
+// 性能分析
 const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 const iPhone = devices['iPhone 6'];

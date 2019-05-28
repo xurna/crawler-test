@@ -1,4 +1,4 @@
-// const HCCrawler = require('headless-chrome-crawler');
+// 爬虫测试
 const puppeteer = require('puppeteer');
 const path = require('path');
 const eachSeries = require('async/eachSeries');
@@ -32,7 +32,6 @@ const makLoop = 5;
       request.continue();
   });
   page.on('console', msg => {
-    // console.log(msg);
     for (let i = 0; i < msg.args().length; ++i) {
       // console.log(`${i}: ${msg.args()[i]}`);
     }
@@ -56,7 +55,7 @@ const makLoop = 5;
   console.log('sort:', sort.length);
 
   // 同步执行
-  eachSeries(sort.slice(0, 1), (item, callback) => {
+  eachSeries(sort, (item, callback) => {
     // 当前操作完成后使用callback执行下一个操作。
     process(item, () => { callback() })
   }, (err) => {

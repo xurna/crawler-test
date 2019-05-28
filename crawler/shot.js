@@ -1,4 +1,5 @@
 
+// 截屏，生成pdf
 const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch({ headless: false, slowMo: 0 }); // 模拟启动一个浏览器

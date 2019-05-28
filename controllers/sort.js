@@ -65,7 +65,34 @@ const list = async (ctx, next) => {
   }
 };
 
+// 测试爬取数据
+const test = async (ctx, next) => {
+  const puppeteer = require('puppeteer');
+  const browser = await puppeteer.launch({ headless: true, slowMo: 0 });
+  const page = await browser.newPage();
+  await page.goto('https://toutiao.qiushibaike.com/yuedu/taskcenter');
+
+  let list = await page.evaluate(() => {  // 爬取内容
+    const name = document.querySelectorAll('.header-wrapper .name')
+    const elements = Array.from(name);
+    let names = elements.map(element => {
+      return element.innerHTML
+    })
+    return names
+  });
+  ctx.body = {
+    err: 0,
+    desc: '获取成功，共有' + list.length + '条数据',
+    data: list
+  };
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await browser.close();
+};
+
+
+
 module.exports = {
   'POST /sort/add': addSort,
   'GET /sort/list': list,
+  'GET /sort/test': test,
 };
