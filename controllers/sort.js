@@ -70,15 +70,21 @@ const test = async (ctx, next) => {
   const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: true, slowMo: 0 });
   const page = await browser.newPage();
-  await page.goto('https://toutiao.qiushibaike.com/yuedu/taskcenter');
+  await page.setViewport({  // 设置viewport大小
+    width: 375,
+    height: 600,
+    isMobile: true,
+    hasTouch: true
+  })
+  await page.goto('https://www.bilibili.com/');
 
   let list = await page.evaluate(() => {  // 爬取内容
-    const name = document.querySelectorAll('.header-wrapper .name')
-    const elements = Array.from(name);
-    let names = elements.map(element => {
+    const title = document.querySelectorAll('.ri-title')
+    const elements = Array.from(title);
+    let titles = elements.map(element => {
       return element.innerHTML
     })
-    return names
+    return titles
   });
   ctx.body = {
     err: 0,
