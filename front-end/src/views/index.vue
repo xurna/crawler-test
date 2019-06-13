@@ -21,6 +21,7 @@
         </li>
       </ul>
     </div>
+    <p style="font-size:14px;color:#333;text-align:center">Copyright © 2019 备案号：粤ICP备17076018号-1</p>
   </div>
 </template>
 

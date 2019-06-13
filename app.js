@@ -25,9 +25,9 @@ app.use(async (ctx, next) => {
 // 允许跨域
 app.use(cors());
 // 解析静态资源
-app.use(static(path.join(__dirname, '/front-end')))
+app.use(static(path.join(__dirname, '/front-end/dist')))
 // 解析页面
-app.use(views(path.join(__dirname, '/front-end'), {
+app.use(views(path.join(__dirname, '/front-end/dist'), {
   extension: 'html'
 }))
 
