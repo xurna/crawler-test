@@ -11,11 +11,11 @@ const puppeteer = require('puppeteer');
   })
   await page.goto('https://www.qimai.cn/')
   await page.waitFor(1000)
-  await page.click('.platform') // 模拟用户点击搜索提交表单
+  await page.click('.platform') // 点击下拉框
   await page.waitFor(1000)
-  await page.click('.platform-list > .ivu-dropdown-item:nth-child(2)') // 模拟用户点击搜索提交表单
+  await page.click('.platform-list > .ivu-dropdown-item:nth-child(2)') // 选择安卓
   await page.type('input[type=text][placeholder="应用名称或者包名"].ivu-input', 'com.coohua.xinwenzhuan') // 键盘输入关键字
-  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter'); // 回车
   await page.waitFor(1000)
   
   const name = await page.$eval('.appname', divs => divs.innerHTML);
