@@ -1,6 +1,7 @@
-// 表单输入
+// npm i --save puppeteer --ignore-scripts
 const puppeteer = require('puppeteer');
 (async () => {
+  // const browser = await puppeteer.launch({ executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless: false })
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
   await page.setViewport({  // 设置viewport大小
