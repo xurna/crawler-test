@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/xurna/crawler-test#readme",
   "devDependencies": {
-    "async": "^2.6.2",
+    "async": "^3.2.2",
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "crawler": "^1.2.0",
